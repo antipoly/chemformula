@@ -221,6 +221,9 @@
     ()
   }
 
+  // Calculate total width for centering the label
+  let total-width = box-size * distribution.len() + box-spacing * (distribution.len() - 1)
+
   block(
     stack(
       dir: ttb,
@@ -235,7 +238,7 @@
           },
         )
       } else if label != none {
-        align(center, atostate(label))
+        box(width: total-width, align(center, text(size: label-size, atostate(label))))
       },
       // Orbital boxes
       stack(
