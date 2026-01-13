@@ -128,6 +128,17 @@
       }
     } else if type == "Symbol" {
       expr.replace(regex("\@|\;"), "").replace(regex("\*|\."), sym.dot)
+    } else if type == "Bond" {
+      // Bond markers from preprocessing
+      if expr == "<BOND_SINGLE>" {
+        "bond.single"
+      } else if expr == "<BOND_DOUBLE>" {
+        "bond.double"
+      } else if expr == "<BOND_TRIPLE>" {
+        "bond.triple"
+      } else {
+        expr
+      }
     } else if type == "Arrow" {
       let arrow-toks = parse-arrow(expr)
       let args = ()
@@ -166,6 +177,27 @@
   results.sum()
 }
 
+// Bond symbols for chemical structures
+// Center bonds vertically relative to x-height of text
+#let bond-line(len: 1em) = line(length: len, stroke: 0.5pt)
+
+#let bond = (
+  single: box(inset: (x: 1.5pt), baseline: 50%, box(height: 0.5em, align(top, bond-line()))),
+  double: box(inset: (x: 1.5pt), baseline: 15%, box(height: 0.5em, align(top, stack(
+    dir: ttb,
+    spacing: 3pt,
+    bond-line(),
+    bond-line(),
+  )))),
+  triple: box(inset: (x: 1.5pt), baseline: -12%, box(height: 0.5em, align(top, stack(
+    dir: ttb,
+    spacing: 2.5pt,
+    bond-line(),
+    bond-line(),
+    bond-line(),
+  )))),
+)
+
 #let ch(chem, scope: (:), mode: "Inline", scale-paren: true) = {
   if type(chem) == content {
     if chem.func() == raw {
@@ -175,7 +207,24 @@
     }
   }
 
-  eval(mode: "math", recursive-parse(chem, mode: mode), scope: (aq: $upright(a q)$) + scope)
+  // Preprocess bonds: replace - = ~ between letters/digits/parens with markers
+  // This avoids conflicts with charges (which appear after ^ or at end)
+  // Loop until no more replacements to handle chains like H-O-H or CH3-CH2-CH3
+  let prev = ""
+  while prev != chem {
+    prev = chem
+    chem = chem.replace(regex("([A-Za-z0-9\)])~([A-Za-z\(])"), m => (
+      m.captures.at(0) + "<BOND_TRIPLE>" + m.captures.at(1)
+    ))
+    chem = chem.replace(regex("([A-Za-z0-9\)])=([A-Za-z\(])"), m => (
+      m.captures.at(0) + "<BOND_DOUBLE>" + m.captures.at(1)
+    ))
+    chem = chem.replace(regex("([A-Za-z0-9\)])-([A-Za-z\(])"), m => (
+      m.captures.at(0) + "<BOND_SINGLE>" + m.captures.at(1)
+    ))
+  }
+
+  eval(mode: "math", recursive-parse(chem, mode: mode), scope: (aq: $upright(a q)$, bond: bond) + scope)
 }
 
 #let ch = ch.with(scope: (ch: ch))

@@ -135,6 +135,7 @@
     ("Arrow", regex("(<=>|<->|<-|->)(\[[^\]]*\]){0,2}"), 3),
     ("Math", regex("\$[^\$]*\$"), 3),
     ("Text", regex("\"[^\"]*\""), 3),
+    ("Bond", regex("<BOND_SINGLE>|<BOND_DOUBLE>|<BOND_TRIPLE>"), 4), // Bond markers from preprocessing
     ("Precipitation", regex("\s+v[\s\@\;]+"), 2),
     ("Gaseous", regex("\s\^[\s\@\;]+"), 3),
     ("Above", regex("\^\^" + mpp + "|\^\^[^\s\;\@\_\(\)]+|\^\^[^\s\;\@]*[\s\;\@]"), 3),
