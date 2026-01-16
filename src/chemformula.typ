@@ -182,7 +182,7 @@
 #let bond-line(len: 1em) = line(length: len, stroke: 0.5pt)
 
 #let bond = (
-  single: box(inset: (x: 1.5pt), baseline: 50%, box(height: 0.5em, align(top, bond-line()))),
+  single: box(inset: (x: 1.5pt), baseline: 35%, box(height: 0.5em, align(top, bond-line()))),
   double: box(inset: (x: 1.5pt), baseline: 15%, box(height: 0.5em, align(top, stack(
     dir: ttb,
     spacing: 3pt,
