@@ -183,13 +183,13 @@
 
 #let bond = (
   single: box(inset: (x: 1.5pt), baseline: 35%, box(height: 0.5em, align(top, bond-line()))),
-  double: box(inset: (x: 1.5pt), baseline: 15%, box(height: 0.5em, align(top, stack(
+  double: box(inset: (x: 1.5pt), baseline: 10%, box(height: 0.5em, align(top, stack(
     dir: ttb,
     spacing: 3pt,
     bond-line(),
     bond-line(),
   )))),
-  triple: box(inset: (x: 1.5pt), baseline: -12%, box(height: 0.5em, align(top, stack(
+  triple: box(inset: (x: 1.5pt), baseline: -10%, box(height: 0.5em, align(top, stack(
     dir: ttb,
     spacing: 2.5pt,
     bond-line(),
