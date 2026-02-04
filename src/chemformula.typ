@@ -224,6 +224,11 @@
     ))
   }
 
+  // Handle leading bonds at start of string
+  chem = chem.replace(regex("^~([A-Za-z\(])"), m => "<BOND_TRIPLE>" + m.captures.at(0))
+  chem = chem.replace(regex("^=([A-Za-z\(])"), m => "<BOND_DOUBLE>" + m.captures.at(0))
+  chem = chem.replace(regex("^-([A-Za-z\(])"), m => "<BOND_SINGLE>" + m.captures.at(0))
+
   eval(mode: "math", recursive-parse(chem, mode: mode), scope: (aq: $upright(a q)$, bond: bond) + scope)
 }
 

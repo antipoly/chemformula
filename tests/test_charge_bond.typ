@@ -1,4 +1,4 @@
-#import "../src/chemformula.typ": ch, bond
+#import "../src/chemformula.typ": bond, ch
 
 #set page(width: auto, height: auto, margin: 1em)
 
@@ -12,36 +12,33 @@ Each bond type with reference lines to check vertical centering:
   columns: 4,
   stroke: 0.5pt + gray,
   [Bond Type], [Raw Bond], [With Text], [In Formula],
-  
+
   [Single],
   box(
     width: 3em,
     height: 1.5em,
     stroke: 0.5pt + red,
-    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + 
-    place(center + horizon, bond.single)
+    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + place(center + horizon, bond.single),
   ),
   text(size: 12pt)[#box(stroke: 0.5pt + green)[C]#bond.single#box(stroke: 0.5pt + green)[H]],
   [#ch("C-H")],
-  
+
   [Double],
   box(
     width: 3em,
     height: 1.5em,
     stroke: 0.5pt + red,
-    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + 
-    place(center + horizon, bond.double)
+    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + place(center + horizon, bond.double),
   ),
   text(size: 12pt)[#box(stroke: 0.5pt + green)[C]#bond.double#box(stroke: 0.5pt + green)[O]],
   [#ch("C=O")],
-  
+
   [Triple],
   box(
     width: 3em,
     height: 1.5em,
     stroke: 0.5pt + red,
-    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + 
-    place(center + horizon, bond.triple)
+    align(horizon, line(length: 100%, stroke: 0.5pt + blue)) + place(center + horizon, bond.triple),
   ),
   text(size: 12pt)[#box(stroke: 0.5pt + green)[C]#bond.triple#box(stroke: 0.5pt + green)[C]],
   [#ch("C~C")],
@@ -82,3 +79,19 @@ CH3-CH2-CH3: #ch("CH3-CH2-CH3")
 H2C=CH2: #ch("H2C=CH2")
 
 HC~CH: #ch("HC~CH")
+
+= Substituent Bonds (leading/trailing)
+
+-COO-: #ch("-COO-")
+
+-CH3: #ch("-CH3")
+
+-OH: #ch("-OH")
+
+CH3-: #ch("CH3-")
+
+-CH2-: #ch("-CH2-")
+
+=O: #ch("=O")
+
+-NH2: #ch("-NH2")
